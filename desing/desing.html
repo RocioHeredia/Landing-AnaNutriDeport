@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ana Valverde - Nutrición Deportiva</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary": "#ffffff",
+                      "on-primary-container": "#e7ffe6",
+                      "surface-container-low": "#f5f3f0",
+                      "secondary-container": "#c2eec4",
+                      "surface-variant": "#e4e2df",
+                      "on-secondary": "#ffffff",
+                      "tertiary-container": "#bd4c64",
+                      "on-tertiary-fixed": "#400013",
+                      "surface-tint": "#006d31",
+                      "surface-bright": "#fbf9f6",
+                      "on-error-container": "#93000a",
+                      "surface": "#fbf9f6",
+                      "inverse-surface": "#30312f",
+                      "background": "#fbf9f6",
+                      "error-container": "#ffdad6",
+                      "surface-dim": "#dbdad7",
+                      "primary-container": "#00843d",
+                      "on-error": "#ffffff",
+                      "on-secondary-container": "#466d4c",
+                      "secondary-fixed": "#c2eec4",
+                      "outline": "#6e7a6e",
+                      "secondary-fixed-dim": "#a6d1aa",
+                      "secondary": "#406747",
+                      "primary": "#00682f",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed-dim": "#71dc8a",
+                      "on-primary-fixed": "#00210a",
+                      "tertiary-fixed-dim": "#ffb2bd",
+                      "inverse-on-surface": "#f2f0ed",
+                      "inverse-primary": "#71dc8a",
+                      "on-secondary-fixed-variant": "#294f31",
+                      "on-tertiary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "on-background": "#1b1c1a",
+                      "on-surface-variant": "#3e4a3e",
+                      "on-tertiary-container": "#fff7f7",
+                      "surface-container": "#efeeeb",
+                      "outline-variant": "#bdcabb",
+                      "tertiary": "#9d344c",
+                      "surface-container-high": "#eae8e5",
+                      "primary-fixed": "#8ef9a4",
+                      "on-primary-fixed-variant": "#005324",
+                      "on-secondary-fixed": "#00210a",
+                      "tertiary-fixed": "#ffd9dd",
+                      "surface-container-highest": "#e4e2df",
+                      "on-tertiary-fixed-variant": "#84203a",
+                      "on-surface": "#1b1c1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": [
+                              "Plus Jakarta Sans", "sans-serif"
+                      ],
+                      "body": [
+                              "Manrope", "sans-serif"
+                      ],
+                      "label": [
+                              "Plus Jakarta Sans", "sans-serif"
+                      ]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .glass-header {
+            background-color: rgba(251, 249, 246, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .kinetic-gradient {
+            background: linear-gradient(145deg, #00682f 0%, #00843d 100%);
+        }
+        .text-kinetic-gradient {
+            background: linear-gradient(145deg, #00682f 0%, #00843d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .ambient-shadow {
+            box-shadow: 0 20px 40px rgba(27, 28, 26, 0.06);
+        }
+        .path-line {
+            position: relative;
+        }
+        .path-line::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #00682f;
+            border-radius: 9999px;
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: all 0.3s ease;
+        }
+        .path-line:hover::after {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar Component -->
+<nav class="fixed top-0 w-full z-50 glass-header shadow-[0_20px_40px_rgba(27,28,26,0.06)] border-b-0">
+<div class="flex justify-between items-center w-full px-8 py-4 max-w-screen-2xl mx-auto">
+<div class="text-2xl font-black text-emerald-900 uppercase tracking-tighter font-headline flex items-center gap-2"><img alt="Ana Valverde Logo" class="h-12 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0uhydrHs9QKh4tJUtzBBJ4FfVw4A5KveYDPMjgYJJaUcIsdJI5eASSiNlno4jGnzJE5mATV_AsE0MXXqkjkjpPn6Ep35xa9GnEcTepxXgBaWHM-iXll8FJ46j7iNy26ba4iUofroMnrmGLYPnnF8JHxKsIcj_87Jo3oq7RoT11KkCPVmYl1WE0dsle9_z6mFYVoezKmHGbyPqP_RvoKf3OEp03CLqcyzsYLcjZwHb5enDCt64cVtIfTmY6BBjMpYFpK5yuDqDgjMZgE"/></div>
+<div class="hidden md:flex gap-8 items-center font-['Plus_Jakarta_Sans'] font-semibold tracking-tight">
+<a class="text-stone-600 hover:text-emerald-900 transition-colors hover:opacity-80 transition-all duration-300" href="#servicios">Services</a>
+<a class="text-stone-600 hover:text-emerald-900 transition-colors hover:opacity-80 transition-all duration-300" href="#experiencia">Experience</a>
+<a class="text-stone-600 hover:text-emerald-900 transition-colors hover:opacity-80 transition-all duration-300" href="#ubicacion">Location</a>
+<a class="text-stone-600 hover:text-emerald-900 transition-colors hover:opacity-80 transition-all duration-300" href="#talleres">Workshops</a>
+</div>
+<a class="bg-stone-50/80 dark:bg-stone-950/80 backdrop-blur-xl text-emerald-900 dark:text-emerald-400 font-['Plus_Jakarta_Sans'] font-semibold tracking-tight px-6 py-2 rounded-full kinetic-gradient text-on-primary hover:opacity-90 transition-opacity flex items-center gap-2 scale-95 active:scale-90 transition-transform" href="#reserva">
+<span class="material-symbols-outlined text-sm">calendar_month</span>
+<span class="hidden sm:inline-block">Book Appointment</span>
+</a>
+</div>
+</nav>
+<main class="pt-24 md:pt-32">
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex items-center overflow-hidden bg-surface pb-20">
+<div class="max-w-screen-2xl mx-auto px-8 w-full relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-6 relative z-20 pt-12 lg:pt-0">
+<span class="font-label text-sm uppercase tracking-[0.05em] text-primary font-bold block mb-6 flex items-center gap-2">
+<span class="w-8 h-0.5 bg-primary rounded-full"></span>
+                            Nutrición Deportiva de Excelencia
+                        </span>
+<h1 class="font-headline text-5xl md:text-6xl lg:text-[4.5rem] leading-[1.05] tracking-[-0.02em] font-extrabold text-on-background mb-8">
+                            Alimenta tu <br/>
+<span class="text-kinetic-gradient relative inline-block">
+                                Rendimiento
+                                <svg class="absolute -bottom-2 left-0 w-full h-3 text-primary opacity-30" preserveaspectratio="none" viewbox="0 0 100 10">
+<path d="M0 5 Q 50 10 100 5" fill="transparent" stroke="currentColor" stroke-width="2"></path>
+</svg>
+</span>
+</h1>
+<p class="font-body text-lg md:text-xl text-on-surface-variant max-w-lg mb-10 leading-relaxed">
+                            Estrategias nutricionales personalizadas para atletas y personas activas que buscan superar sus límites y alcanzar sus objetivos.
+                        </p>
+<div class="flex flex-wrap gap-4">
+<a class="kinetic-gradient text-on-primary px-8 py-4 rounded-full font-headline font-semibold text-lg hover:shadow-lg hover:-translate-y-1 transition-all duration-300 ambient-shadow" href="#reserva">
+                                Agendar Consulta
+                            </a>
+<a class="px-8 py-4 rounded-full font-headline font-semibold text-lg text-on-background border border-outline-variant/30 hover:bg-surface-container-low transition-colors duration-300" href="#servicios">
+                                Conoce mis servicios
+                            </a>
+</div>
+</div>
+<div class="lg:col-span-6 relative">
+<div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden ambient-shadow z-10 bg-surface-container-lowest">
+<img alt="Atleta entrenando" class="w-full h-full object-cover" data-alt="Female athlete adjusting her running shoes on an outdoor track in the early morning with soft natural sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeljMtCVCdHzLjNzyzq7-UUWZ6jZ6oQ8vP-NesV53qj3_gy-oPYNTiGaezZ-rYDQAwEbXW-LCywRLJ11ERYMwnP1ckiogMuKFmxUgdHwmiYwUidZi-ThluWFEA3CpzCg9066591CM5X2AZTOwkuM2TVcBeAf-Ylz_T11uup07pMwBsTYxUahNSmCtCmLL5cLqIryRBLWngtPonPZMsS3JhwC-2UI-HynTw7P7NOLbo3GU0u-21R_4ppfUKmOB5jU_Yb5BYPh4Jinx2"/>
+</div>
+<!-- Kinetic Decorative Elements -->
+<div class="absolute -top-12 -right-12 w-64 h-64 bg-secondary-container rounded-full blur-3xl opacity-50 z-0"></div>
+<div class="absolute -bottom-12 -left-12 w-80 h-80 bg-primary-container rounded-full blur-3xl opacity-20 z-0"></div>
+<!-- Floating Stat Card -->
+<div class="absolute bottom-10 -left-10 bg-surface-container-lowest p-6 rounded-2xl ambient-shadow z-20 border border-outline-variant/10 hidden md:block">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full kinetic-gradient flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">workspace_premium</span>
+</div>
+<div>
+<p class="font-headline font-bold text-2xl text-on-background">10+ Años</p>
+<p class="font-body text-sm text-on-surface-variant uppercase tracking-wider">Experiencia Clínica</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Section (Bento Grid) -->
+<section class="py-24 bg-surface-container-low relative" id="servicios">
+<div class="max-w-screen-2xl mx-auto px-8 relative z-10">
+<div class="mb-16 md:mb-24 max-w-2xl">
+<h2 class="font-headline text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
+                        Servicios <br/>
+<span class="text-on-surface-variant font-light">Especializados</span>
+</h2>
+<p class="font-body text-lg text-on-surface-variant">
+                        Evaluación integral y planes a medida para optimizar tu salud, composición corporal y rendimiento deportivo.
+                    </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Service 1: Large Card -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-xl p-8 ambient-shadow relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary-container rounded-full blur-3xl opacity-5 -translate-y-1/2 translate-x-1/2 group-hover:opacity-10 transition-opacity"></div>
+<div class="flex flex-col md:flex-row gap-8 h-full">
+<div class="flex-1 flex flex-col justify-between z-10">
+<div>
+<div class="w-14 h-14 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-2xl">monitoring</span>
+</div>
+<h3 class="font-headline text-2xl font-bold mb-4">Controles Nutricionales y Mediciones</h3>
+<p class="font-body text-on-surface-variant mb-6 leading-relaxed">
+                                        Seguimiento continuo de tu progreso. Ajustes precisos en tu plan de alimentación basados en datos reales de tu evolución, asegurando que cada caloría y macronutriente trabaje a tu favor.
+                                    </p>
+</div>
+<a class="inline-flex items-center gap-2 text-primary font-headline font-semibold path-line self-start" href="#reserva">
+                                    Agendar Control <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="flex-1 rounded-lg overflow-hidden bg-surface-variant/50 hidden md:block">
+<img alt="Mediciones" class="w-full h-full object-cover opacity-90 mix-blend-multiply" data-alt="Close up of a sports nutritionist measuring an athlete's body composition using professional calipers in a modern clinic with natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMJOs3PF8bctVCz8E0TRyV_ANs-pgx5YknbIyajbsqMmVogo94yTr-8KvU17-hkrH5YNWiRf2ynWICP3G7cDD0gGPWk-LDPvgPf4gKMCMobUm0AYvjPFqReuxnVWpwRZKOhWu5iE-3sA7iywOQVy-xGW9N14RTtTW6z2b-uJDZyULHfpkc6A9M27_qguMRatJtdQHhNwTLIncRpOmN2qedNf2-VM6jHp1FaisiMXs7mjhDuW5lqqrMK514lvgFPWtSXImZd7kPCG19"/>
+</div>
+</div>
+</div>
+<!-- Service 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-8 ambient-shadow flex flex-col justify-between">
+<div>
+<div class="w-14 h-14 rounded-full bg-tertiary-container/20 text-tertiary flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-2xl">accessibility_new</span>
+</div>
+<h3 class="font-headline text-xl font-bold mb-4">Evaluación Antropométrica</h3>
+<p class="font-body text-on-surface-variant mb-6">
+                                Análisis detallado de tu composición corporal (masa grasa, masa muscular, ósea y residual) mediante el protocolo ISAK para establecer objetivos realistas.
+                            </p>
+</div>
+</div>
+<!-- Service 3 -->
+<!-- Service 4 -->
+<div class="bg-surface-container-highest rounded-xl p-8 ambient-shadow border border-outline-variant/10 lg:col-span-3">
+<div class="flex flex-col md:flex-row items-center gap-8">
+<div class="flex-shrink-0">
+<div class="w-20 h-20 rounded-full kinetic-gradient flex items-center justify-center text-on-primary shadow-lg">
+<span class="material-symbols-outlined text-4xl">restaurant_menu</span>
+</div>
+</div>
+<div>
+<h3 class="font-headline text-2xl font-bold mb-2">Planes de Alimentación Personalizados</h3>
+<p class="font-body text-on-surface-variant">
+                                     Diseño de estrategias dietéticas adaptadas a tus gustos, horarios, tipo de entrenamiento y requerimientos energéticos específicos. No hay dietas genéricas, solo nutrición a medida.
+                                 </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Booking Section -->
+<section class="py-24 bg-surface relative overflow-hidden" id="reserva">
+<!-- Background Texture -->
+<div class="absolute inset-0 z-0 opacity-30 pointer-events-none" style="background-image: radial-gradient(#6e7a6e 1px, transparent 1px); background-size: 32px 32px;"></div>
+<div class="max-w-screen-2xl mx-auto px-8 relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+<!-- Info Column -->
+<div class="lg:col-span-5 flex flex-col justify-center">
+<span class="font-label text-sm uppercase tracking-[0.05em] text-primary font-bold block mb-4">Inicia tu proceso</span>
+<h2 class="font-headline text-4xl md:text-5xl font-extrabold tracking-tight mb-8">
+                            Agenda tu <br/>Consulta
+                        </h2>
+<div class="space-y-8 mb-12">
+<!-- Location -->
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-on-background shrink-0">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-lg mb-1">Clínica Centrade</h4>
+<p class="font-body text-on-surface-variant">Urquiza 342 norte</p>
+</div>
+</div>
+<!-- Schedule -->
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-on-background shrink-0">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-lg mb-3">Horarios de Atención</h4>
+<ul class="font-body text-on-surface-variant space-y-2">
+<li class="flex justify-between border-b border-outline-variant/20 pb-1">
+<span>Lunes</span> <span class="font-medium">17:30 - 20:00</span>
+</li>
+<li class="flex justify-between border-b border-outline-variant/20 pb-1">
+<span>Martes</span> <span class="font-medium">08:30 - 12:30</span>
+</li>
+<li class="flex justify-between border-b border-outline-variant/20 pb-1">
+<span>Miércoles</span> <span class="font-medium">15:30 - 20:00</span>
+</li>
+<li class="flex justify-between border-b border-outline-variant/20 pb-1">
+<span>Jueves</span> <span class="font-medium">13:00 - 17:00</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Form Column -->
+<div class="lg:col-span-7">
+<div class="bg-surface-container-lowest rounded-xl p-8 md:p-10 ambient-shadow border border-outline-variant/20">
+<h3 class="font-headline text-2xl font-bold mb-6">Solicitud de Turno</h3>
+<form action="#" class="space-y-6" method="POST">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block font-label text-sm font-semibold mb-2 text-on-background uppercase tracking-wider" for="nombre">Nombre Completo</label>
+<input class="w-full bg-surface-container-high border-0 rounded-full px-6 py-4 focus:ring-2 focus:ring-primary/40 focus:outline-none transition-shadow font-body" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" type="text"/>
+</div>
+<div>
+<label class="block font-label text-sm font-semibold mb-2 text-on-background uppercase tracking-wider" for="telefono">Teléfono / WhatsApp</label>
+<input class="w-full bg-surface-container-high border-0 rounded-full px-6 py-4 focus:ring-2 focus:ring-primary/40 focus:outline-none transition-shadow font-body" id="telefono" name="telefono" placeholder="+54..." type="tel"/>
+</div>
+</div>
+<div>
+<label class="block font-label text-sm font-semibold mb-2 text-on-background uppercase tracking-wider" for="motivo">Motivo de Consulta / Deporte</label>
+<input class="w-full bg-surface-container-high border-0 rounded-full px-6 py-4 focus:ring-2 focus:ring-primary/40 focus:outline-none transition-shadow font-body" id="motivo" name="motivo" placeholder="Ej. Mejorar rendimiento en running, Descenso de peso..." type="text"/>
+</div>
+<div>
+<label class="block font-label text-sm font-semibold mb-3 text-on-background uppercase tracking-wider">Preferencia de Día</label>
+<div class="flex flex-wrap gap-3">
+<!-- Selection Chips -->
+<label class="cursor-pointer">
+<input class="peer sr-only" name="dia_pref" type="radio" value="lunes"/>
+<div class="px-5 py-2 rounded-full border border-outline-variant/30 text-on-surface-variant font-body font-medium peer-checked:bg-secondary-container peer-checked:text-on-secondary-container peer-checked:border-secondary-container transition-colors">
+                                                Lunes
+                                            </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="dia_pref" type="radio" value="martes"/>
+<div class="px-5 py-2 rounded-full border border-outline-variant/30 text-on-surface-variant font-body font-medium peer-checked:bg-secondary-container peer-checked:text-on-secondary-container peer-checked:border-secondary-container transition-colors">
+                                                Martes
+                                            </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="dia_pref" type="radio" value="miercoles"/>
+<div class="px-5 py-2 rounded-full border border-outline-variant/30 text-on-surface-variant font-body font-medium peer-checked:bg-secondary-container peer-checked:text-on-secondary-container peer-checked:border-secondary-container transition-colors">
+                                                Miércoles
+                                            </div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="dia_pref" type="radio" value="jueves"/>
+<div class="px-5 py-2 rounded-full border border-outline-variant/30 text-on-surface-variant font-body font-medium peer-checked:bg-secondary-container peer-checked:text-on-secondary-container peer-checked:border-secondary-container transition-colors">
+                                                Jueves
+                                            </div>
+</label>
+</div>
+</div>
+<button class="w-full kinetic-gradient text-on-primary py-4 rounded-full font-headline font-bold text-lg hover:shadow-lg transition-all duration-300 mt-4 flex justify-center items-center gap-2" type="submit">
+                                    Enviar Solicitud <span class="material-symbols-outlined">send</span>
+</button>
+<p class="text-xs text-center text-on-surface-variant mt-3 font-body">Me pondré en contacto contigo a la brevedad para confirmar el turno.</p>
+</form>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Component -->
+<footer class="w-full py-12 border-t-0 bg-stone-100 dark:bg-stone-900 flex flex-col md:flex-row justify-between items-center px-12 gap-8 text-emerald-900 dark:text-emerald-400 font-['Manrope'] text-sm tracking-wide tonal shift using surface_dim flat no shadows opacity-100 hover:opacity-75">
+<div class="flex justify-center md:justify-start"><img alt="Ana Valverde Logo" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0uhydrHs9QKh4tJUtzBBJ4FfVw4A5KveYDPMjgYJJaUcIsdJI5eASSiNlno4jGnzJE5mATV_AsE0MXXqkjkjpPn6Ep35xa9GnEcTepxXgBaWHM-iXll8FJ46j7iNy26ba4iUofroMnrmGLYPnnF8JHxKsIcj_87Jo3oq7RoT11KkCPVmYl1WE0dsle9_z6mFYVoezKmHGbyPqP_RvoKf3OEp03CLqcyzsYLcjZwHb5enDCt64cVtIfTmY6BBjMpYFpK5yuDqDgjMZgE"/></div>
+<div class="flex flex-wrap justify-center gap-6 md:gap-8">
+<a class="text-stone-500 dark:text-stone-400 hover:text-emerald-600 dark:hover:text-emerald-300 transition-colors" href="#">Centrade Clinic: Urquiza 342 norte</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-emerald-600 dark:hover:text-emerald-300 transition-colors" href="#">Privacy Policy</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-emerald-600 dark:hover:text-emerald-300 transition-colors" href="#">Instagram</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-emerald-600 dark:hover:text-emerald-300 transition-colors" href="#">LinkedIn</a>
+</div>
+<div class="text-stone-500 dark:text-stone-400">
+            © 2024 Ana Valverde. Sports Nutrition Excellence.
+        </div>
+</footer>
+</body></html>

@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import HeroSection from '../components/HeroSection.astro';
+import ServiciosSection from '../components/ServiciosSection.astro';
+import ReservaSection from '../components/ReservaSection.astro';
+import FooterSection from '../components/FooterSection.astro';
+---
+
+<BaseLayout
+  title="Ana Valverde Nutrición Deportiva"
+  description="Lic. Ana Valverde — Nutricionista especializada en nutrición deportiva. Controles nutricionales, mediciones y evaluación antropométrica en Argentina."
+>
+  <Nav />
+  <main>
+    <HeroSection />
+    <ServiciosSection />
+    <ReservaSection />
+  </main>
+  <FooterSection />
+</BaseLayout>
+
+<script>
+  import('../scripts/scroll-animations');
+</script>

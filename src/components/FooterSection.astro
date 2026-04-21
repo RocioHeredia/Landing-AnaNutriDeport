@@ -1,0 +1,15 @@
+---
+---
+
+<footer class="bg-[var(--color-on-surface)] text-[var(--color-surface)]">
+  <div class="container-site py-10 flex justify-center">
+    <p class="text-sm text-[var(--color-surface-high)] text-center">
+      &copy; <span id="footer-year"></span> Ana Valverde Nutrición Deportiva. Todos los derechos reservados.
+    </p>
+  </div>
+</footer>
+
+<script>
+  const el = document.getElementById('footer-year');
+  if (el) el.textContent = String(new Date().getFullYear());
+</script>

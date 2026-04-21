@@ -1,0 +1,557 @@
+---
+import { disponibilidad, diasHabilitados } from '../data/horarios';
+
+const disponibilidadJSON = JSON.stringify(disponibilidad);
+const diasHabilitadosJSON = JSON.stringify(diasHabilitados);
+---
+
+<section id="reserva" class="bg-[var(--color-primary-light)]">
+  <div class="container-site">
+
+    <!-- Encabezado centrado -->
+    <div class="reserva-heading fade-in">
+      <span class="reserva-eyebrow">Agendá tu consulta</span>
+      <h2 class="heading-xl text-[var(--color-on-surface)]">Reservar turno</h2>
+      <p class="body-lg text-[var(--color-on-surface-muted)] mt-3">
+        Completá el formulario y me comunico para confirmar tu turno.
+      </p>
+    </div>
+
+    <!-- Formulario -->
+    <div class="reserva-form-wrap fade-in">
+      <form id="reserva-form" class="reserva-form" novalidate>
+
+        <!-- Datos personales -->
+        <p class="form-block-title">Datos personales</p>
+        <div class="form-fields-grid">
+          <div>
+            <label for="nombre" class="field-label">Nombre <span class="req">*</span></label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required class="field-input" />
+            <span class="field-error hidden" id="error-nombre">Ingresá tu nombre.</span>
+          </div>
+          <div>
+            <label for="apellido" class="field-label">Apellido <span class="req">*</span></label>
+            <input type="text" id="apellido" name="apellido" placeholder="Tu apellido" required class="field-input" />
+            <span class="field-error hidden" id="error-apellido">Ingresá tu apellido.</span>
+          </div>
+          <div>
+            <label for="email" class="field-label">Email <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="tu@email.com" required class="field-input" />
+            <span class="field-error hidden" id="error-email">Ingresá un email válido.</span>
+          </div>
+          <div>
+            <label for="telefono" class="field-label">Teléfono <span class="req">*</span></label>
+            <input type="tel" id="telefono" name="telefono" placeholder="+54 9 11 0000 0000" required class="field-input" />
+            <span class="field-error hidden" id="error-telefono">Ingresá tu teléfono.</span>
+          </div>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <!-- Elegí día y horario -->
+        <p class="form-block-title">Elegí día y horario</p>
+        <div class="form-schedule-grid">
+
+          <!-- Calendario -->
+          <div>
+            <p class="field-label">Día <span class="req">*</span></p>
+            <div class="cal-wrapper">
+              <div class="cal-header">
+                <button type="button" id="cal-prev" aria-label="Mes anterior" class="cal-nav-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <span id="cal-title" class="cal-title"></span>
+                <button type="button" id="cal-next" aria-label="Mes siguiente" class="cal-nav-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+              </div>
+              <div class="cal-weekdays">
+                {['D','L','M','X','J','V','S'].map(d => <span>{d}</span>)}
+              </div>
+              <div id="cal-grid" class="cal-grid"></div>
+            </div>
+            <input type="hidden" id="fecha-seleccionada" name="fecha" />
+            <span class="field-error hidden" id="error-fecha">Seleccioná una fecha.</span>
+          </div>
+
+          <!-- Horarios -->
+          <div class="horarios-col">
+            <p class="field-label">Horario <span class="req">*</span></p>
+            <div class="horarios-panel">
+              <p id="horarios-empty-msg" class="horarios-empty-msg">
+                Seleccioná un día para ver los horarios
+              </p>
+              <div id="horarios-grid" class="horarios-grid"></div>
+            </div>
+            <input type="hidden" id="horario-seleccionado" name="horario" />
+            <span class="field-error hidden" id="error-horario">Seleccioná un horario.</span>
+          </div>
+
+        </div>
+
+        <div class="form-divider"></div>
+
+        <!-- Submit -->
+        <div class="form-submit-area">
+          <button type="submit" id="submit-btn" class="btn-primary">
+            Solicitar turno
+          </button>
+          <p id="form-status" aria-live="polite" class="form-status hidden"></p>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<script define:vars={{ disponibilidadJSON, diasHabilitadosJSON }}>
+  const disponibilidad = JSON.parse(disponibilidadJSON);
+  const diasHabilitados = JSON.parse(diasHabilitadosJSON);
+
+  let viewYear = new Date().getFullYear();
+  let viewMonth = new Date().getMonth();
+  let selectedDate = null;
+
+  const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+  function renderCalendar() {
+    const title = document.getElementById('cal-title');
+    const grid = document.getElementById('cal-grid');
+    if (!title || !grid) return;
+
+    title.textContent = `${MESES[viewMonth]} ${viewYear}`;
+    grid.innerHTML = '';
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+    const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+
+    for (let i = 0; i < firstDay; i++) {
+      grid.appendChild(document.createElement('div'));
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date = new Date(viewYear, viewMonth, d);
+      const dow = date.getDay();
+      const isPast = date < today;
+      const isEnabled = diasHabilitados.includes(dow) && !isPast;
+      const dateStr = `${viewYear}-${String(viewMonth + 1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const isSelected = selectedDate === dateStr;
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = String(d);
+      btn.setAttribute('aria-label', `${d} de ${MESES[viewMonth]} de ${viewYear}`);
+
+      if (isEnabled) {
+        btn.className = 'cal-day cal-day--enabled' + (isSelected ? ' cal-day--selected' : '');
+        btn.addEventListener('click', () => selectDate(dateStr, dow));
+      } else {
+        btn.className = 'cal-day cal-day--disabled';
+        btn.disabled = true;
+        btn.setAttribute('aria-disabled', 'true');
+      }
+
+      grid.appendChild(btn);
+    }
+  }
+
+  function selectDate(dateStr, dow) {
+    selectedDate = dateStr;
+    document.getElementById('fecha-seleccionada').value = dateStr;
+    hideError('error-fecha');
+    renderCalendar();
+    renderHorarios(dow);
+  }
+
+  function renderHorarios(dow) {
+    const horariosGrid = document.getElementById('horarios-grid');
+    const emptyMsg = document.getElementById('horarios-empty-msg');
+    const hiddenInput = document.getElementById('horario-seleccionado');
+    if (!horariosGrid || !hiddenInput) return;
+
+    hiddenInput.value = '';
+    horariosGrid.innerHTML = '';
+
+    const diaData = disponibilidad.find(d => d.dia === dow);
+    if (!diaData) {
+      emptyMsg.style.display = 'block';
+      return;
+    }
+    emptyMsg.style.display = 'none';
+
+    diaData.franjas.forEach(franja => {
+      if (!franja.horarios.length) return;
+
+      const label = document.createElement('p');
+      label.className = 'horario-franja-label';
+      label.textContent = franja.label;
+      horariosGrid.appendChild(label);
+
+      const row = document.createElement('div');
+      row.className = 'horario-chips-row';
+
+      franja.horarios.forEach(hora => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'horario-chip';
+        chip.textContent = hora;
+        chip.setAttribute('aria-label', `Horario ${hora}`);
+
+        chip.addEventListener('click', () => {
+          horariosGrid.querySelectorAll('.horario-chip').forEach(c => c.classList.remove('horario-chip--selected'));
+          chip.classList.add('horario-chip--selected');
+          hiddenInput.value = hora;
+          hideError('error-horario');
+        });
+
+        row.appendChild(chip);
+      });
+
+      horariosGrid.appendChild(row);
+    });
+  }
+
+  document.getElementById('cal-prev').addEventListener('click', () => {
+    if (--viewMonth < 0) { viewMonth = 11; viewYear--; }
+    renderCalendar();
+  });
+  document.getElementById('cal-next').addEventListener('click', () => {
+    if (++viewMonth > 11) { viewMonth = 0; viewYear++; }
+    renderCalendar();
+  });
+
+  renderCalendar();
+
+  function showError(id) { document.getElementById(id)?.classList.remove('hidden'); }
+  function hideError(id) { document.getElementById(id)?.classList.add('hidden'); }
+
+  document.getElementById('reserva-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    let valid = true;
+
+    const v = id => document.getElementById(id).value.trim();
+    const nombre   = v('nombre');
+    const apellido = v('apellido');
+    const email    = v('email');
+    const telefono = v('telefono');
+    const fecha    = document.getElementById('fecha-seleccionada').value;
+    const horario  = document.getElementById('horario-seleccionado').value;
+
+    if (!nombre)    { showError('error-nombre');   valid = false; } else hideError('error-nombre');
+    if (!apellido)  { showError('error-apellido'); valid = false; } else hideError('error-apellido');
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('error-email'); valid = false; } else hideError('error-email');
+    if (!telefono)  { showError('error-telefono'); valid = false; } else hideError('error-telefono');
+    if (!fecha)     { showError('error-fecha');    valid = false; } else hideError('error-fecha');
+    if (!horario)   { showError('error-horario');  valid = false; } else hideError('error-horario');
+
+    if (!valid) return;
+
+    const btn = document.getElementById('submit-btn');
+    const status = document.getElementById('form-status');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    await new Promise(r => setTimeout(r, 800));
+
+    btn.textContent = 'Turno solicitado ✓';
+    status.textContent = '¡Listo! Te contactamos para confirmar tu turno.';
+    status.classList.remove('hidden');
+    e.target.reset();
+    selectedDate = null;
+    renderCalendar();
+    document.getElementById('horarios-grid').innerHTML = '';
+    document.getElementById('horarios-empty-msg').style.display = 'block';
+  });
+</script>
+
+<style is:global>
+  /* ── Encabezado de sección ── */
+  .reserva-heading {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .reserva-eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+
+  /* ── Contenedor del form ── */
+  .reserva-form-wrap {
+    max-width: 46rem;
+    margin-inline: auto;
+  }
+
+  /* ── Tarjeta del form ── */
+  .reserva-form {
+    background: var(--color-surface);
+    border-radius: 1rem;
+    border: 1.5px solid var(--color-surface-high);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    padding: 2.5rem 2rem;
+  }
+  @media (min-width: 540px) {
+    .reserva-form { padding: 3rem 3.5rem; }
+  }
+
+  /* ── Títulos de bloque ── */
+  .form-block-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-on-surface-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  /* ── Grid de campos personales ── */
+  .form-fields-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  @media (min-width: 540px) {
+    .form-fields-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ── Divisor ── */
+  .form-divider {
+    border: none;
+    border-top: 1px solid var(--color-surface-high);
+    margin-bottom: 2rem;
+  }
+
+  /* ── Grid calendario + horarios ── */
+  .form-schedule-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+    margin-bottom: 2rem;
+  }
+  @media (min-width: 540px) {
+    .form-schedule-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ── Área de submit ── */
+  .form-submit-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .form-status {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  /* ── Labels y errores ── */
+  .field-label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-on-surface);
+    margin-bottom: 0.4rem;
+  }
+  .req { color: var(--color-error); }
+
+  .field-input {
+    width: 100%;
+    background: var(--color-surface-low);
+    border: 1.5px solid var(--color-surface-high);
+    padding: 0.75rem 0.9rem;
+    border-radius: 0.625rem;
+    font-size: 0.9rem;
+    font-family: 'Manrope', sans-serif;
+    color: var(--color-on-surface);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .field-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 15%, transparent);
+  }
+  .field-input::placeholder { color: var(--color-surface-high); }
+
+  .field-error {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--color-error);
+    margin-top: 0.3rem;
+  }
+
+  /* ── Calendario ── */
+  .cal-wrapper {
+    border: 1.5px solid var(--color-surface-high);
+    border-radius: 0.625rem;
+    overflow: hidden;
+    margin-top: 0.5rem;
+  }
+  .cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--color-surface-low);
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--color-surface-high);
+  }
+  .cal-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-on-surface);
+  }
+  .cal-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: none;
+    background: transparent;
+    border-radius: 4px;
+    color: var(--color-on-surface-muted);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .cal-nav-btn:hover {
+    background: var(--color-surface-high);
+    color: var(--color-on-surface);
+  }
+  .cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: var(--color-surface-low);
+    border-bottom: 1px solid var(--color-surface-high);
+  }
+  .cal-weekdays span {
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--color-on-surface-muted);
+    padding: 0.4rem 0;
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: var(--color-surface);
+    padding: 0.4rem;
+    gap: 0.2rem;
+  }
+  .cal-day {
+    aspect-ratio: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 2px solid transparent;
+    background: transparent;
+    cursor: default;
+    transition: background 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s;
+    padding: 0;
+  }
+  .cal-day--disabled {
+    color: var(--color-surface-high);
+    cursor: not-allowed;
+  }
+  .cal-day--enabled {
+    color: var(--color-primary);
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .cal-day--enabled:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+  }
+  .cal-day--selected {
+    background: var(--color-primary) !important;
+    color: var(--color-white) !important;
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 25%, transparent) !important;
+  }
+
+  /* ── Columna de horarios ── */
+  .horarios-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Panel de horarios ── */
+  .horarios-panel {
+    border: 1.5px solid var(--color-surface-high);
+    border-radius: 0.625rem;
+    background: var(--color-surface-low);
+    padding: 0.875rem;
+    margin-top: 0.5rem;
+    flex: 1;
+    min-height: 8rem;
+  }
+  .horarios-empty-msg {
+    font-size: 0.78rem;
+    color: var(--color-on-surface-muted);
+    font-style: italic;
+    text-align: center;
+    padding-top: 1.75rem;
+    line-height: 1.5;
+  }
+  .horarios-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .horario-franja-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-on-surface-muted);
+    margin: 0;
+  }
+  .horario-chips-row {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .horario-chip {
+    display: inline-flex !important;
+    align-items: center;
+    width: auto !important;
+    padding: 0.35rem 0.8rem;
+    border-radius: 4px;
+    border: 1.5px solid var(--color-surface-high);
+    background: var(--color-surface);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-on-surface-muted);
+    cursor: pointer;
+    font-family: 'Manrope', sans-serif;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+    white-space: nowrap;
+    line-height: 1.4;
+  }
+  .horario-chip:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-primary-light);
+  }
+  .horario-chip--selected {
+    background: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+    color: #ffffff !important;
+    width: auto !important;
+  }
+</style>

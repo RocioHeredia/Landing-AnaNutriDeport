@@ -1,0 +1,60 @@
+---
+import { servicios } from '../data/servicios';
+---
+
+<section id="servicios" class="bg-[var(--color-surface-low)]">
+  <div class="container-site">
+
+    <!-- Encabezado -->
+    <div class="mb-16 fade-in">
+      <span class="inline-block text-[var(--color-primary)] font-semibold text-sm uppercase tracking-widest mb-4">
+        Lo que ofrezco
+      </span>
+      <h2 class="heading-xl text-[var(--color-on-surface)]">
+        Servicios
+      </h2>
+    </div>
+
+    <!-- Cards -->
+    <div class="flex flex-wrap justify-center gap-8 pt-8">
+      {servicios.map((servicio, i) => (
+        <article class="servicio-card fade-in bg-[var(--color-surface)] rounded-[var(--radius-lg)] overflow-hidden shadow-sm border border-[var(--color-surface-high)] flex flex-col w-full max-w-md">
+
+          <!-- Imagen -->
+          <div class="img-wrapper overflow-hidden h-72">
+            <img
+              src={servicio.imageUrl}
+              alt={servicio.imageAlt}
+              width="800"
+              height="400"
+              loading="lazy"
+              class="servicio-img w-full h-full object-cover"
+            />
+          </div>
+
+          <!-- Contenido -->
+          <div class="px-10 py-10 flex flex-col gap-4 flex-1 items-center text-center">
+            <h3 class="heading-md text-[var(--color-on-surface)]">
+              {servicio.titulo}
+            </h3>
+            <p class="body-sm text-[var(--color-on-surface-muted)]">
+              {servicio.descripcion}
+            </p>
+
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .servicio-img {
+    transition: transform 0.5s ease;
+  }
+  .servicio-card:hover .servicio-img {
+    transform: scale(1.04);
+  }
+</style>
