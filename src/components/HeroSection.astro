@@ -1,63 +1,141 @@
 ---
 ---
 
-<section id="inicio" class="hero-section relative min-h-screen flex items-center overflow-hidden">
+<section id="inicio" class="hero-section">
+  <div class="hero-inner fade-in">
 
-  <!-- Imagen de fondo -->
-  <div class="hero-bg absolute inset-0 z-0">
-    <img
-      src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1600&h=900&fit=crop&q=80"
-      alt=""
-      width="1600"
-      height="900"
-      loading="eager"
-      class="w-full h-full object-cover object-center"
-    />
-    <!-- Overlay orgánico -->
-    <div class="absolute inset-0 bg-gradient-to-r from-[var(--color-surface)]/90 via-[var(--color-surface)]/60 to-transparent"></div>
-  </div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">
+        Nutrición Deportiva de Excelencia
+      </span>
 
-  <!-- Contenido -->
-  <div class="container-site relative z-10 py-32 md:py-40">
-    <div class="max-w-2xl fade-in">
-
-      <!-- Headline -->
-      <h1 class="heading-display text-[var(--color-on-surface)] mb-6">
-        Alimentá tu<br />
-        <span class="text-[var(--color-primary)]">rendimiento.</span>
+      <h1 class="hero-headline">
+        <span class="hero-line-1">Alimentá tu</span>
+        <span class="hero-line-2">rendimiento.</span>
       </h1>
 
-      <!-- Subtítulo -->
-      <p class="body-lg text-[var(--color-on-surface-muted)] max-w-xl">
-        Planes nutricionales personalizados para deportistas y público general. Controles, mediciones y evaluación antropométrica con mirada profesional.
+      <p class="hero-sub">
+        Planes nutricionales personalizados para deportistas que quieren ganar más.<br class="hero-br" />
+        Controles, mediciones y evaluación antropométrica con mirada profesional.
       </p>
 
+      <a href="/#reserva" class="btn-hero-primary">Reserva consulta</a>
     </div>
-  </div>
 
-  <!-- Indicador scroll -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center opacity-60">
-    <div class="scroll-indicator w-px h-10 bg-[var(--color-primary)] origin-top"></div>
   </div>
-
 </section>
 
 <style>
   .hero-section {
-    background-color: var(--color-surface);
+    min-height: 68vh;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)),
+      url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1920&q=80') center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 1.5rem;
   }
 
-  .scroll-indicator {
-    animation: scrollLine 1.8s ease-in-out infinite;
+  .hero-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    padding-top: clamp(4rem, 6vh, 5.5rem);
+    padding-bottom: clamp(2rem, 3vh, 3rem);
   }
 
-  @keyframes scrollLine {
-    0%   { transform: scaleY(0); opacity: 1; }
-    60%  { transform: scaleY(1); opacity: 1; }
-    100% { transform: scaleY(1); opacity: 0; }
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.75rem;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .scroll-indicator { animation: none; }
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: #888888;
+  }
+
+  .eyebrow-line {
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: #335c43;
+    flex-shrink: 0;
+  }
+
+  .hero-headline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1em;
+    line-height: 1;
+  }
+
+  .hero-line-1 {
+    font-family: 'Dancing Script', cursive;
+    font-weight: 600;
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    color: #335c43;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+  }
+
+  .hero-line-2 {
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
+    font-size: clamp(3.5rem, 7.5vw, 7rem);
+    color: #335c43;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+
+  .hero-sub {
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+    line-height: 1.85;
+    color: #666666;
+    max-width: 52ch;
+  }
+
+  .hero-br {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .hero-br { display: block; }
+  }
+
+  .btn-hero-primary {
+    display: inline-flex;
+    align-items: center;
+    background: #335c43;
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    margin-top: 0.5rem;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  }
+
+  .btn-hero-primary:hover {
+    background: #274d37;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(51, 92, 67, 0.25);
   }
 </style>

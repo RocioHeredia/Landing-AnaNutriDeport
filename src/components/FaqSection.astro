@@ -1,0 +1,187 @@
+---
+const faqs = [
+  {
+    pregunta: '¿Las consultas son presenciales u online?',
+    respuesta: 'Por el momento las consultas son presenciales en la clínica. Si te encontrás fuera del área o tenés alguna limitación, no dudes en consultarme para evaluar opciones.',
+  },
+  {
+    pregunta: '¿Cuánto tiempo dura el proceso?',
+    respuesta: 'Depende del objetivo y de cada persona. En general, el seguimiento activo dura entre 3 y 6 meses, con controles periódicos para ajustar el plan según tu evolución y resultados.',
+  },
+  {
+    pregunta: '¿Trabajás con deportistas de alto rendimiento?',
+    respuesta: 'Sí, trabajo con atletas de distintas disciplinas —running, ciclismo, fútbol, crossfit y más— diseñando estrategias nutricionales específicas para optimizar el rendimiento y la recuperación.',
+  },
+  {
+    pregunta: '¿Qué incluye la primera consulta?',
+    respuesta: 'En la primera consulta realizamos una anamnesis nutricional completa, evaluamos tus hábitos alimentarios y tu nivel de actividad física, y comenzamos a diseñar tu plan personalizado. Dura aproximadamente 60 minutos.',
+  },
+  {
+    pregunta: '¿Puedo tener un plan si no soy deportista?',
+    respuesta: '¡Claro que sí! Trabajo con personas activas y también con quienes llevan un estilo de vida más sedentario. El objetivo es mejorar tu alimentación y bienestar general, independientemente de tu nivel de actividad.',
+  },
+];
+---
+
+<section id="faq" class="bg-[var(--color-surface-low)]">
+  <div class="container-site">
+
+    <!-- Encabezado -->
+    <div class="faq-header fade-in">
+      <span class="faq-eyebrow">Preguntas frecuentes</span>
+      <h2 class="heading-lg">
+        Todo lo que <span class="faq-sub">querés saber</span>
+      </h2>
+    </div>
+
+    <!-- Acordeón -->
+    <div class="faq-list" role="list">
+      {faqs.map((faq, i) => (
+        <div class="faq-item fade-in" role="listitem">
+          <button
+            class="faq-trigger"
+            aria-expanded="false"
+            data-faq={i}
+          >
+            <span class="faq-question">{faq.pregunta}</span>
+            <span class="faq-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-panel" id={`faq-panel-${i}`} role="region">
+            <p class="faq-answer">{faq.respuesta}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.faq-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx   = btn.dataset.faq;
+      const panel = document.getElementById(`faq-panel-${idx}`);
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+      // Cerrar todos los demás
+      document.querySelectorAll<HTMLButtonElement>('.faq-trigger').forEach(other => {
+        if (other !== btn) {
+          other.setAttribute('aria-expanded', 'false');
+          other.classList.remove('is-open');
+          const otherIdx   = other.dataset.faq;
+          const otherPanel = document.getElementById(`faq-panel-${otherIdx}`);
+          otherPanel?.classList.remove('is-open');
+        }
+      });
+
+      // Alternar el actual
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      btn.classList.toggle('is-open', !isOpen);
+      panel?.classList.toggle('is-open', !isOpen);
+    });
+  });
+</script>
+
+<style>
+  .faq-header {
+    max-width: 38rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .faq-eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+
+  .faq-sub {
+    font-weight: 300;
+    color: var(--color-on-surface-muted);
+  }
+
+  /* Lista */
+  .faq-list {
+    max-width: 52rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-surface-high);
+  }
+
+  .faq-item:first-child {
+    border-top: 1px solid var(--color-surface-high);
+  }
+
+  /* Trigger */
+  .faq-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .faq-question {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+    color: var(--color-on-surface);
+    line-height: 1.4;
+    transition: color 0.2s ease;
+  }
+
+  .faq-trigger:hover .faq-question,
+  .faq-trigger.is-open .faq-question {
+    color: var(--color-primary);
+  }
+
+  /* Icono chevron */
+  .faq-icon {
+    flex-shrink: 0;
+    color: var(--color-on-surface-muted);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+  }
+
+  .faq-trigger.is-open .faq-icon {
+    transform: rotate(180deg);
+    color: var(--color-primary);
+  }
+
+  /* Panel con animación */
+  .faq-panel {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity    0.3s ease;
+  }
+
+  .faq-panel.is-open {
+    max-height: 300px;
+    opacity: 1;
+  }
+
+  .faq-answer {
+    font-size: 0.97rem;
+    line-height: 1.8;
+    color: var(--color-on-surface-muted);
+    padding-bottom: 1.5rem;
+    max-width: 48rem;
+  }
+</style>

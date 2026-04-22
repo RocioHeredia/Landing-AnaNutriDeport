@@ -1,60 +1,187 @@
 ---
-import { servicios } from '../data/servicios';
+const servicios = [
+  {
+    titulo: 'Controles Nutricionales',
+    descripcion: 'Seguimiento periódico de tu estado nutricional con mediciones precisas para ajustar tu plan según tu evolución y objetivos.',
+    imagen: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&h=400&fit=crop&q=80',
+    alt: 'Bowl con vegetales y alimentos saludables coloridos',
+    iconClass: 'icon-green',
+    icon: `<path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>`,
+  },
+  {
+    titulo: 'Evaluación Antropométrica',
+    descripcion: 'Medición de composición corporal —masa grasa, muscular y ósea— mediante protocolo ISAK para establecer metas reales y medibles.',
+    imagen: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop&q=80',
+    alt: 'Persona realizando actividad física representando evaluación deportiva',
+    iconClass: 'icon-rose',
+    icon: `<path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd"/>`,
+  },
+  {
+    titulo: 'Plan Alimentario',
+    descripcion: 'Estrategia dietética diseñada a tu medida, adaptada a tus gustos, horarios y tipo de entrenamiento. Sin dietas genéricas.',
+    imagen: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=600&h=400&fit=crop&q=80',
+    alt: 'Preparación de alimentos saludables y planificación nutricional',
+    iconClass: 'icon-sage',
+    icon: `<path fill-rule="evenodd" d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5zM4.875 6H6v10.125A3.375 3.375 0 009.375 19.5H16.5a3 3 0 01-3 3H6.375a3.375 3.375 0 01-3.375-3.375V9.375A3.375 3.375 0 014.875 6z" clip-rule="evenodd"/>`,
+  },
+];
 ---
 
 <section id="servicios" class="bg-[var(--color-surface-low)]">
   <div class="container-site">
 
     <!-- Encabezado -->
-    <div class="mb-16 fade-in">
-      <span class="inline-block text-[var(--color-primary)] font-semibold text-sm uppercase tracking-widest mb-4">
-        Lo que ofrezco
-      </span>
-      <h2 class="heading-xl text-[var(--color-on-surface)]">
-        Servicios
+    <div class="servicios-header fade-in">
+      <span class="servicios-eyebrow">Lo que ofrezco</span>
+      <h2 class="heading-lg">
+        Servicios <span class="servicios-sub">Especializados</span>
       </h2>
     </div>
 
-    <!-- Cards -->
-    <div class="flex flex-wrap justify-center gap-8 pt-8">
-      {servicios.map((servicio, i) => (
-        <article class="servicio-card fade-in bg-[var(--color-surface)] rounded-[var(--radius-lg)] overflow-hidden shadow-sm border border-[var(--color-surface-high)] flex flex-col w-full max-w-md">
+    <!-- 3 cards iguales -->
+    <div class="servicios-grid">
+      {servicios.map(s => (
+        <article class="servicio-card fade-in">
 
           <!-- Imagen -->
-          <div class="img-wrapper overflow-hidden h-72">
+          <div class="card-img-wrap">
             <img
-              src={servicio.imageUrl}
-              alt={servicio.imageAlt}
-              width="800"
+              src={s.imagen}
+              alt={s.alt}
+              width="600"
               height="400"
               loading="lazy"
-              class="servicio-img w-full h-full object-cover"
+              class="card-img"
             />
           </div>
 
           <!-- Contenido -->
-          <div class="px-10 py-10 flex flex-col gap-4 flex-1 items-center text-center">
-            <h3 class="heading-md text-[var(--color-on-surface)]">
-              {servicio.titulo}
-            </h3>
-            <p class="body-sm text-[var(--color-on-surface-muted)]">
-              {servicio.descripcion}
-            </p>
-
+          <div class="card-body">
+            <div class={`card-icon-wrap ${s.iconClass}`}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" aria-hidden="true" set:html={s.icon} />
+            </div>
+            <h3 class="heading-md card-title">{s.titulo}</h3>
+            <p class="card-desc">{s.descripcion}</p>
           </div>
 
         </article>
       ))}
     </div>
-
   </div>
 </section>
 
 <style>
-  .servicio-img {
-    transition: transform 0.5s ease;
+  .servicios-header {
+    max-width: 38rem;
+    margin-bottom: 4rem;
   }
-  .servicio-card:hover .servicio-img {
-    transform: scale(1.04);
+
+  .servicios-eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+
+  .servicios-sub {
+    font-weight: 300;
+    color: var(--color-on-surface-muted);
+  }
+
+  /* Grid 3 columnas iguales */
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .servicios-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Card */
+  .servicio-card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .servicio-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 24px 56px rgba(0, 0, 0, 0.18);
+  }
+
+  /* Imagen */
+  .card-img-wrap {
+    height: 13rem;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.55s ease;
+  }
+
+  .servicio-card:hover .card-img {
+    transform: scale(1.05);
+  }
+
+  /* Contenido */
+  .card-body {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+  }
+
+  /* Iconos */
+  .card-icon-wrap {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .icon-green {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+  }
+
+  .icon-rose {
+    background: #f9e4e9;
+    color: var(--color-tertiary);
+  }
+
+  .icon-sage {
+    background: #deeade;
+    color: var(--color-secondary);
+  }
+
+  /* Texto */
+  .card-title {
+    line-height: 1.25;
+  }
+
+  .card-desc {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--color-on-surface-muted);
+    flex: 1;
   }
 </style>

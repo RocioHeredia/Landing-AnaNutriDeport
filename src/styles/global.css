@@ -2,13 +2,14 @@
 
 /* ===== DESIGN TOKENS ===== */
 :root {
-  --color-primary:      #00682f;
-  --color-primary-dark: #004d22;
-  --color-primary-light:#e8f5ee;
-  --color-secondary:    #406747;
-  --color-surface:      #f7f4ef;
-  --color-surface-low:  #ede9e2;
-  --color-surface-high: #d6d0c6;
+  --color-primary:      #00843D;
+  --color-primary-dark: #005c2b;
+  --color-primary-light:#e6f4ec;
+  --color-secondary:    #59805E;
+  --color-tertiary:     #BD4C64;
+  --color-surface:      #F5F3F0;
+  --color-surface-low:  #eae7e1;
+  --color-surface-high: #d0ccc4;
   --color-on-surface:   #1a1a1a;
   --color-on-surface-muted: #5a5a5a;
   --color-white:        #ffffff;
@@ -41,13 +42,10 @@ body {
 }
 
 /* ===== TIPOGRAFÍA FLUIDA ===== */
-.heading-display { font-size: clamp(3rem, 7vw, 7rem); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; line-height: 1.05; }
-.heading-xl      { font-size: clamp(2.25rem, 4.5vw, 4.5rem); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; line-height: 1.1; }
-.heading-lg      { font-size: clamp(1.5rem, 3vw, 2.75rem); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; line-height: 1.2; }
-.heading-md      { font-size: clamp(1.2rem, 2vw, 1.75rem); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; line-height: 1.3; }
-.body-lg         { font-size: clamp(1rem, 1.4vw, 1.2rem); line-height: 1.7; }
-.body-sm         { font-size: 0.9rem; line-height: 1.6; }
-
+.heading-display { font-size: clamp(3rem, 7vw, 7rem); font-family: 'Cormorant Garamond', serif; font-weight: 600; line-height: 1.05; }
+.heading-xl      { font-size: clamp(2.25rem, 4.5vw, 4.5rem); font-family: 'Cormorant Garamond', serif; font-weight: 600; line-height: 1.1; }
+.heading-lg      { font-size: clamp(1.5rem, 3vw, 2.75rem); font-family: 'Cormorant Garamond', serif; font-weight: 600; line-height: 1.2; }
+.heading-md      { font-size: clamp(1.2rem, 2vw, 1.75rem); font-family: 'Cormorant Garamond', serif; font-weight: 600; line-height: 1.3; }
 /* ===== UTILIDADES ===== */
 .container-site {
   width: 100%;
@@ -91,9 +89,9 @@ body {
 
 /* ===== SECTION BASE ===== */
 section {
-  padding-block: 5rem;
+  padding-block: 4.5rem;
 }
 
 @media (min-width: 768px) {
-  section { padding-block: 7rem; }
+  section { padding-block: 4rem; }
 }
