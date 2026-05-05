@@ -1,6 +1,0 @@
-Servicios que realiza:
--Controles nutricionales y mediciones
--Evaluación antropométrica
-Horarios: lunes de 17:30 a 20, martes de 8:30 a 12:30, miércoles 15:30 a 20 jueves de 13: a 17
-Para los turnos tiene un numero de télefono pero no creo que sea muy eficiente, por esto la idea es Programar una landing page que muestre servicios, credenciales y formulario de turno para quienes ingresen a la página
-
